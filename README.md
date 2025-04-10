@@ -19,16 +19,16 @@ This module creates an AWS RDS PostgreSQL database with security best practices 
 
 ```hcl
 module "rds" {
-  source  = "your-org/aws-rds/terraform"
+  source  = "payraydoo/aws-rds/terraform"
   version = "0.1.0"
 
-  tag_org        = "company"
+  tag_org        = "payraydoo"
   env            = "dev"
   vpc_id         = module.vpc.id
   private_subnet_ids = module.vpc.private_subnet_ids
   
   # Database configuration
-  identifier      = "myapp"
+  identifier      = "paydb"
   engine_version  = "15.3"
   instance_class  = "db.t3.medium"
   allocated_storage = 20
@@ -45,7 +45,7 @@ module "rds" {
   allowed_security_groups = [module.app.security_group_id]
   
   tags = {
-    Project     = "my-project"
+    Project     = "payraydoo"
     ManagedBy   = "terraform"
   }
 }

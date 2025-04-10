@@ -1,7 +1,3 @@
-/*
-RDS Module
-*/
-
 # Create DB subnet group
 resource "aws_db_subnet_group" "this" {
   name        = "${var.tag_org}-${var.env}-db-subnet-group"

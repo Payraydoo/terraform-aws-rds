@@ -1,3 +1,7 @@
+##############################################
+# main.tf
+##############################################
+
 # Create DB subnet group
 resource "aws_db_subnet_group" "this" {
   name        = "${var.tag_org}-${var.env}-db-subnet-group"
@@ -193,10 +197,6 @@ resource "aws_db_instance" "this" {
   
   # Auto minor version upgrade
   auto_minor_version_upgrade = true
-  
-  # Enhanced monitoring
-  monitoring_interval = var.monitoring_interval
-  monitoring_role_arn = aws_iam_role.rds_enhanced_monitoring.arn
   
   tags = merge(
     {

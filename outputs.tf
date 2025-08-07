@@ -35,5 +35,5 @@ output "subnet_group_id" {
 
 output "parameter_group_id" {
   description = "The DB parameter group ID"
-  value       = aws_db_parameter_group.this.id
+  value       = var.parameter_group_name != null ? var.parameter_group_name : aws_db_parameter_group.this[0].id
 }

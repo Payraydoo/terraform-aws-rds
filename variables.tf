@@ -123,6 +123,12 @@ variable "allowed_cidr_blocks" {
   default     = []
 }
 
+variable "parameter_group_name" {
+  description = "Name of the DB parameter group to associate. If not provided, a default one will be created"
+  type        = string
+  default     = null
+}
+
 variable "tags" {
   description = "Additional tags to apply to all resources"
   type        = map(string)

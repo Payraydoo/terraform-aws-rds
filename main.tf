@@ -72,8 +72,9 @@ resource "aws_security_group_rule" "allow_cidr_blocks" {
 
 # Create a parameter group for PostgreSQL
 resource "aws_db_parameter_group" "this" {
+  count       = var.parameter_group_name == null ? 1 : 0
   name        = "${var.tag_org}-${var.env}-${var.identifier}-pg"
-  family      = "postgres${replace(var.engine_version, "/\\.\\d+$/", "")}"
+  family      = "postgres${split(".", var.engine_version)[0]}"
   description = "Parameter group for ${var.identifier} PostgreSQL instance"
 
   # Security best practices for PostgreSQL
@@ -178,7 +179,7 @@ resource "aws_db_instance" "this" {
   maintenance_window      = var.maintenance_window
   
   # Parameter and option groups
-  parameter_group_name = aws_db_parameter_group.this.name
+  parameter_group_name = var.parameter_group_name != null ? var.parameter_group_name : aws_db_parameter_group.this[0].name
   
   # Monitoring and logs
   monitoring_interval = var.monitoring_interval
